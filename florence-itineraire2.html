@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firenze in famiglia — 4·5·6·7 septembre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --stone: #EFE6D2;
+    --stone-card: #FBF7EC;
+    --ink: #2A2318;
+    --ink-soft: #6b5f4c;
+    --cypress: #3B4A34;
+    --cypress-deep: #263023;
+    --brick: #9C4630;
+    --gold: #A9822E;
+    --line: rgba(42,35,24,0.14);
+    --radius: 3px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--stone);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    max-width:920px;
+    margin:0 auto;
+    padding:56px 28px 32px;
+    border-bottom:1px solid var(--line);
+  }
+  .kicker{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:1.05rem;
+    color:var(--brick);
+    margin-bottom:6px;
+  }
+  header h1{
+    font-size:clamp(2.1rem, 5vw, 3.1rem);
+    color:var(--cypress-deep);
+    line-height:1.05;
+  }
+  .subrow{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 28px;
+    margin-top:20px;
+    font-size:0.95rem;
+    color:var(--ink-soft);
+  }
+  .subrow strong{color:var(--ink);font-weight:600;}
+  .actions{
+    margin-top:26px;
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  button.tool-btn, a.tool-btn{
+    font-family:'Work Sans', sans-serif;
+    font-size:0.88rem;
+    font-weight:600;
+    color:var(--stone-card);
+    background:var(--cypress);
+    border:none;
+    padding:10px 18px;
+    border-radius:var(--radius);
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  button.tool-btn.secondary, a.tool-btn.secondary{
+    background:transparent;
+    color:var(--cypress);
+    border:1px solid var(--cypress);
+  }
+  button.tool-btn:hover, a.tool-btn:hover{opacity:0.85;}
+
+  /* ---------- day tabs ---------- */
+  nav.days{
+    max-width:920px;
+    margin:0 auto;
+    padding:28px 28px 0;
+    display:flex;
+    gap:6px;
+    border-bottom:1px solid var(--line);
+  }
+  nav.days button{
+    font-family:'Fraunces', serif;
+    font-size:1rem;
+    background:none;
+    border:none;
+    cursor:pointer;
+    color:var(--ink-soft);
+    padding:10px 18px 16px;
+    position:relative;
+    top:1px;
+  }
+  nav.days button .num{
+    display:block;
+    font-size:1.6rem;
+    font-weight:600;
+    color:inherit;
+  }
+  nav.days button.active{
+    color:var(--cypress-deep);
+    border-bottom:2px solid var(--brick);
+  }
+
+  /* ---------- main ---------- */
+  main{
+    max-width:920px;
+    margin:0 auto;
+    padding:36px 28px 80px;
+  }
+  .day-panel{display:none;}
+  .day-panel.active{display:block;}
+  .day-heading{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:22px;
+  }
+  .day-heading h2{font-size:1.6rem;color:var(--cypress-deep);}
+  .day-heading span{font-size:0.9rem;color:var(--ink-soft);}
+
+  .stop{
+    display:grid;
+    grid-template-columns:84px 1fr;
+    gap:18px;
+    padding:20px 0;
+    border-top:1px solid var(--line);
+  }
+  .stop:last-child{border-bottom:1px solid var(--line);}
+  .stop time{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.05rem;
+    color:var(--brick);
+    padding-top:2px;
+  }
+  .stop .content h3{
+    font-size:1.15rem;
+    color:var(--ink);
+    margin-bottom:6px;
+  }
+  .stop .content p{
+    margin:0 0 10px;
+    color:var(--ink-soft);
+    font-size:0.95rem;
+    max-width:60ch;
+  }
+  .stop .links{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .maplink, .booklink{
+    font-size:0.82rem;
+    font-weight:600;
+    text-decoration:none;
+    border-bottom:1px solid currentColor;
+    padding-bottom:1px;
+  }
+  .maplink{color:var(--cypress);}
+  .maplink:hover{color:var(--brick);}
+  .booklink{color:var(--gold);}
+  .booklink:hover{color:var(--brick);}
+
+  /* ---------- practical info ---------- */
+  .info-block{
+    margin-top:56px;
+    background:var(--stone-card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:30px 28px;
+  }
+  .info-block h2{
+    font-size:1.3rem;
+    color:var(--cypress-deep);
+    margin-bottom:18px;
+  }
+  .info-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+  .info-grid .item h4{
+    font-family:'Work Sans', sans-serif;
+    font-size:0.82rem;
+    font-weight:600;
+    text-transform:none;
+    color:var(--brick);
+    margin:0 0 6px;
+  }
+  .info-grid .item p{margin:0;font-size:0.92rem;color:var(--ink);}
+
+  /* booking table */
+  .booking-block{
+    margin-top:56px;
+  }
+  .booking-block h2{
+    font-size:1.3rem;
+    color:var(--cypress-deep);
+    margin-bottom:6px;
+  }
+  .booking-block .lede{
+    font-size:0.92rem;
+    color:var(--ink-soft);
+    margin-bottom:20px;
+    max-width:65ch;
+  }
+  .booking-row{
+    display:grid;
+    grid-template-columns:1fr 1fr 100px;
+    gap:16px;
+    align-items:start;
+    padding:16px 0;
+    border-top:1px solid var(--line);
+  }
+  .booking-row:last-child{border-bottom:1px solid var(--line);}
+  .booking-row h4{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1rem;
+    margin:0 0 4px;
+    color:var(--ink);
+  }
+  .booking-row p{
+    margin:0;
+    font-size:0.86rem;
+    color:var(--ink-soft);
+  }
+  .booking-row a.site-link{
+    font-size:0.86rem;
+    font-weight:600;
+    color:var(--cypress);
+    word-break:break-all;
+  }
+  .booking-row a.site-link:hover{color:var(--brick);}
+  .booking-row .go{
+    justify-self:end;
+    font-size:0.8rem;
+    font-weight:600;
+    color:var(--stone-card);
+    background:var(--gold);
+    padding:8px 14px;
+    border-radius:var(--radius);
+    text-decoration:none;
+    white-space:nowrap;
+  }
+  .booking-row .go:hover{background:var(--brick);}
+
+  /* overview map */
+  .map-embed{
+    margin-top:36px;
+    border-radius:var(--radius);
+    overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .map-embed iframe{width:100%;height:340px;border:0;display:block;}
+  .map-caption{
+    font-size:0.85rem;
+    color:var(--ink-soft);
+    margin-top:10px;
+  }
+
+  footer{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 28px 60px;
+    font-size:0.82rem;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:600px){
+    .stop{grid-template-columns:64px 1fr;}
+    .info-grid{grid-template-columns:1fr;}
+    .booking-row{grid-template-columns:1fr;}
+    .booking-row .go{justify-self:start;}
+    nav.days{overflow-x:auto;}
+  }
+
+  @media print{
+    header .actions, nav.days{display:none !important;}
+    .day-panel{display:block !important;page-break-after:always;}
+    body{background:#fff;}
+    .info-block{background:#fff;}
+    .booking-row .go{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="kicker">Firenze, in famiglia</div>
+  <h1>Florence avec mes grands-parents</h1>
+  <div class="subrow">
+    <div>📍 Logement : <strong>Via Alfonso Lamarmora, 27 — 50121 Firenze</strong></div>
+    <div>🗓️ Arrivée <strong>4 septembre, 18h00</strong></div>
+    <div>✈️ Départ <strong>7 septembre, 17h35</strong> via Amsterdam → Toulouse</div>
+    <div>🦯 Mobilité : escaliers ok, max. 2 étages</div>
+  </div>
+  <div class="actions">
+    <button class="tool-btn" onclick="window.print()">🖨️ Imprimer / enregistrer en PDF</button>
+    <a class="tool-btn secondary" id="overview-map-link" href="#" target="_blank" rel="noopener">🗺️ Toutes les étapes sur Google Maps</a>
+    <a class="tool-btn secondary" href="#reservations">🎟️ Où réserver les billets</a>
+  </div>
+</header>
+
+<nav class="days" id="day-tabs"></nav>
+
+<main id="day-panels"></main>
+
+<div style="max-width:920px;margin:0 auto;padding:0 28px;">
+
+  <div class="booking-block" id="reservations">
+    <h2>Où réserver les billets</h2>
+    <p class="lede">Billetteries officielles uniquement — évitez les sites revendeurs qui facturent des commissions. Réservez l'Accademia et le Duomo en priorité, la file d'attente peut être longue en septembre.</p>
+    <div id="booking-list"></div>
+  </div>
+
+  <div class="info-block">
+    <h2>Infos pratiques</h2>
+    <div class="info-grid">
+      <div class="item">
+        <h4>Logement</h4>
+        <p>Via Alfonso Lamarmora, 27 — Firenze, Toscane 50121. Quartier San Marco / Piazza della Libertà, à 5–10 min à pied de l'Accademia et 10 min du Duomo.</p>
+      </div>
+      <div class="item">
+        <h4>Arrêt de bus le plus proche</h4>
+        <p>Matteotti Lamarmora (3 min à pied) — lignes 20, 17, 6A/6B, 23B. Utile pour Piazzale Michelangelo (ligne 20 direction Oltrarno).</p>
+      </div>
+      <div class="item">
+        <h4>Déjeuner du 6 septembre</h4>
+        <p>Jardin du Rifrullo — café de quartier donnant sur les murailles médiévales. Buffet copieux de 12h15 à 15h, 20€/pers, tout en terrasse de plain-pied.</p>
+      </div>
+      <div class="item">
+        <h4>Vol retour</h4>
+        <p>Décollage de Florence à 17h35, escale à Amsterdam (zone Schengen, pas de contrôle passeport), arrivée Toulouse. Départ vers l'aéroport recommandé à 13h00 (tram T2, arrêt Alamanni-Stazione, ~20 min).</p>
+      </div>
+      <div class="item">
+        <h4>Mobilité — ce qui est écarté</h4>
+        <p>Coupole du Brunelleschi (463 marches) et Campanile de Giotto (414 marches) : aucun ascenseur, non praticables. Torre di Arnolfo du Palazzo Vecchio (223 marches) écartée aussi. Le Palazzo Pitti et le Museo dell'Opera del Duomo, eux, ont des ascenseurs.</p>
+      </div>
+      <div class="item">
+        <h4>Bagages</h4>
+        <p>Faire vérifier à l'enregistrement que les valises sont bien "through-checked" jusqu'à Toulouse, pour ne pas avoir à les récupérer à Amsterdam.</p>
+      </div>
+    </div>
+
+    <div class="map-embed">
+      <iframe loading="lazy" src="https://www.google.com/maps?q=Via+Alfonso+Lamarmora+27+Firenze&output=embed"></iframe>
+    </div>
+    <p class="map-caption">Le logement, Via Alfonso Lamarmora 27 — point de départ de toutes les journées.</p>
+  </div>
+</div>
+
+<footer>
+  Itinéraire préparé pour le séjour du 4 au 7 septembre à Florence. Cliquez sur « Voir sur la carte » sous chaque étape pour ouvrir l'itinéraire à pied dans Google Maps, ou sur « Réserver » pour accéder à la billetterie officielle.
+</footer>
+
+<script>
+const days = [
+  {
+    label: "4 sept",
+    title: "Arrivée",
+    stops: [
+      { time: "18h00", title: "Arrivée & installation Airbnb", text: "Check-in, on souffle un peu après le voyage.", q: "Via Alfonso Lamarmora 27, Firenze" },
+      { time: "Soir", title: "Dîner de quartier tranquille", text: "Une trattoria simple près de Via Lamarmora, pas de grande marche le premier soir.", q: "trattoria Piazza della Libertà Firenze" }
+    ]
+  },
+  {
+    label: "5 sept",
+    title: "Duomo & centre historique",
+    stops: [
+      { time: "9h00", title: "Galleria dell'Accademia", text: "À 5–10 min à pied de chez vous. Musée de plain-pied. Réserver en ligne pour éviter la queue.", q: "Galleria dell'Accademia Firenze", book: "https://www.galleriaaccademiafirenze.it" },
+      { time: "10h30", title: "Duomo — intérieur de la cathédrale", text: "Entrée latérale accessible sans marches. Pas de Coupole ni de Campanile (463 et 414 marches, aucun ascenseur).", q: "Duomo di Firenze Piazza del Duomo", book: "https://tickets.duomo.firenze.it" },
+      { time: "11h15", title: "Museo dell'Opera del Duomo", text: "À la place de la Coupole/Campanile : musée sur 3 étages équipé d'ascenseurs. Pietà de Michel-Ange, portes originales du Baptistère.", q: "Museo dell'Opera del Duomo Firenze", book: "https://tickets.duomo.firenze.it" },
+      { time: "12h15", title: "Da Scudieri", text: "Pause pâtisserie/café, vue sur le Duomo.", q: "Da Scudieri Firenze" },
+      { time: "13h00", title: "Déjeuner", text: "Trattoria dans le centre.", q: "trattoria Piazza del Duomo Firenze" },
+      { time: "14h30", title: "Piazza della Signoria", text: "Statues en plein air (copie du David, Neptune, Loggia dei Lanzi).", q: "Piazza della Signoria Firenze" },
+      { time: "15h00", title: "Palazzo Vecchio", text: "Salles du piano nobile via le grand escalier — un seul niveau. La Torre di Arnolfo (223 marches) est écartée.", q: "Palazzo Vecchio Firenze", book: "https://bigliettimusei.comune.fi.it" },
+      { time: "16h00", title: "Ponte Vecchio", text: "Balade sur le pont, bijouteries, vue sur l'Arno.", q: "Ponte Vecchio Firenze" },
+      { time: "16h45", title: "Mercato Nuovo (Porcellino)", text: "Marché couvert tout proche, petit détour rapide.", q: "Mercato Nuovo Firenze" }
+    ]
+  },
+  {
+    label: "6 sept",
+    title: "Oltrarno & collines",
+    stops: [
+      { time: "9h30", title: "Piazzale Michelangelo", text: "Bus 20 depuis l'arrêt Matteotti Lamarmora (3 min de chez vous) — pente extérieure, pas d'étages.", q: "Piazzale Michelangelo Firenze" },
+      { time: "10h30", title: "Église San Miniato al Monte", text: "Juste au-dessus du Piazzale, quelques marches extérieures seulement.", q: "Basilica di San Miniato al Monte Firenze" },
+      { time: "12h15", title: "Jardin du Rifrullo", text: "Buffet copieux 12h15–15h, 20€/pers, vue sur les murailles médiévales, terrasse de plain-pied.", q: "Rifrullo Firenze Via San Niccolò" },
+      { time: "15h30", title: "Palazzo Pitti + Jardin de Boboli", text: "Ascenseurs disponibles pour la Galleria Palatina (1er étage) et les collections du 2e étage. Boboli en pente mais sans escaliers intérieurs.", q: "Palazzo Pitti Firenze", book: "https://www.uffizi.it/palazzo-pitti" }
+    ]
+  },
+  {
+    label: "7 sept",
+    title: "Dernière matinée & départ",
+    stops: [
+      { time: "8h30", title: "Préparation des valises", text: "Check-out, bagages prêts pour la journée.", q: "Via Alfonso Lamarmora 27, Firenze" },
+      { time: "9h15", title: "Mercato di Sant'Ambrogio", text: "Marché de quartier authentique à 5 min de chez vous, dernier café tranquille.", q: "Mercato di Sant'Ambrogio Firenze" },
+      { time: "10h15", title: "Trajet vers Santa Maria Novella", text: "Bus ou taxi avec les bagages, environ 15–20 min.", q: "Piazza di Santa Maria Novella Firenze" },
+      { time: "11h00", title: "Chiostro Verde (Museo di Santa Maria Novella)", text: "Cloîtres de plain-pied. Les fresques du Déluge de Paolo Uccello, demandé par mamie.", q: "Museo di Santa Maria Novella Firenze", book: "https://www.smn.it" },
+      { time: "12h15", title: "Déjeuner près de Santa Maria Novella", text: "Repas léger près de la gare, sans traîner.", q: "ristorante Piazza Santa Maria Novella Firenze" },
+      { time: "13h00", title: "Départ vers l'aéroport (tram T2)", text: "Vol avec escale à Amsterdam (zone Schengen) — tram T2 depuis Alamanni-Stazione, ~20 min.", q: "Aeroporto di Firenze Peretola" }
+    ]
+  }
+];
+
+const bookingSites = [
+  { name: "Galleria dell'Accademia (le David)", note: "Seul canal officiel : B-Ticket", url: "https://www.galleriaaccademiafirenze.it" },
+  { name: "Duomo — Coupole, Baptistère, Campanile, Musée de l'Opera", note: "Cathédrale gratuite, sous-attractions payantes", url: "https://tickets.duomo.firenze.it" },
+  { name: "Palazzo Vecchio", note: "Billetterie officielle de la Ville de Florence", url: "https://bigliettimusei.comune.fi.it" },
+  { name: "Palazzo Pitti + Jardin de Boboli", note: "Fait partie des Gallerie degli Uffizi", url: "https://www.uffizi.it/palazzo-pitti" },
+  { name: "Chiostro Verde — Santa Maria Novella", note: "Musée + basilique", url: "https://www.smn.it" }
+];
+
+const tabsEl = document.getElementById('day-tabs');
+const panelsEl = document.getElementById('day-panels');
+
+days.forEach((day, i) => {
+  const btn = document.createElement('button');
+  btn.innerHTML = `<span class="num">${day.label.split(' ')[0]}</span>${day.title}`;
+  btn.dataset.index = i;
+  btn.className = i === 0 ? 'active' : '';
+  btn.addEventListener('click', () => selectDay(i));
+  tabsEl.appendChild(btn);
+
+  const panel = document.createElement('section');
+  panel.className = 'day-panel' + (i === 0 ? ' active' : '');
+  panel.id = 'panel-' + i;
+
+  const heading = document.createElement('div');
+  heading.className = 'day-heading';
+  heading.innerHTML = `<h2>${day.label} — ${day.title}</h2>`;
+  panel.appendChild(heading);
+
+  day.stops.forEach(stop => {
+    const row = document.createElement('div');
+    row.className = 'stop';
+    const mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(stop.q);
+    const bookLink = stop.book ? `<a class="booklink" href="${stop.book}" target="_blank" rel="noopener">Réserver →</a>` : '';
+    row.innerHTML = `
+      <time>${stop.time}</time>
+      <div class="content">
+        <h3>${stop.title}</h3>
+        <p>${stop.text}</p>
+        <div class="links">
+          <a class="maplink" href="${mapUrl}" target="_blank" rel="noopener">Voir sur la carte →</a>
+          ${bookLink}
+        </div>
+      </div>`;
+    panel.appendChild(row);
+  });
+
+  panelsEl.appendChild(panel);
+});
+
+function selectDay(i){
+  document.querySelectorAll('#day-tabs button').forEach((b, idx) => b.classList.toggle('active', idx === i));
+  document.querySelectorAll('.day-panel').forEach((p, idx) => p.classList.toggle('active', idx === i));
+}
+
+// booking list
+const bookingListEl = document.getElementById('booking-list');
+bookingSites.forEach(site => {
+  const row = document.createElement('div');
+  row.className = 'booking-row';
+  row.innerHTML = `
+    <div><h4>${site.name}</h4><p>${site.note}</p></div>
+    <div><a class="site-link" href="${site.url}" target="_blank" rel="noopener">${site.url.replace('https://','')}</a></div>
+    <a class="go" href="${site.url}" target="_blank" rel="noopener">Réserver</a>`;
+  bookingListEl.appendChild(row);
+});
+
+// overview map: all stop queries joined as a multi-stop directions link starting from the Airbnb
+const allStops = days.flatMap(d => d.stops.map(s => s.q));
+const uniqueStops = [...new Set(allStops)];
+const overviewUrl = 'https://www.google.com/maps/dir/' + uniqueStops.map(q => encodeURIComponent(q)).join('/');
+document.getElementById('overview-map-link').href = overviewUrl;
+</script>
+
+</body>
+</html>
